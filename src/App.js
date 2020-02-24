@@ -1,25 +1,30 @@
 import React from 'react';
+import { Router } from '@reach/router';
 import logo from './logo.svg';
 import './App.css';
 
+import Context from 'context';
+
+import Index from 'views/Index';
+import NotFound from 'views/NotFound';
+import Category from 'views/Category';
+import List from 'views/List';
+import Entry from 'views/Entry';
+
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Context.Provider value={{}}>
+      <Router>
+        <Index path="/">
+          <Category path=":category">
+            <List path="/" />
+            <Entry path=":id" />
+          </Category>
+        </Index>
+
+        <NotFound default />
+      </Router>
+    </Context.Provider>
   );
 }
 
